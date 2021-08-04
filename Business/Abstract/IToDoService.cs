@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Abstract
 {
@@ -12,6 +13,7 @@ namespace Business.Abstract
        List<Todo> GetAllByManagerId(int id);
        List<Todo> GetAllIsEndedFalse();
        List<Todo> GetAllIsAppointed(bool isAppointed);
+       List<ToDoDto> GetAllToDoDetails();
 
-    }
+   }
 }

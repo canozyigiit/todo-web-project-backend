@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Entities;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,5 +16,10 @@ namespace DataAccess.Concrete.EntityFramework
         }
 
         public DbSet<Todo> ToDos { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<User> Users { get; set; }
+
+
     }
 }

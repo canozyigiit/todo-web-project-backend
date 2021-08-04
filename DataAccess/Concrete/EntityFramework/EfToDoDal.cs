@@ -3,57 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-   public class EfToDoDal:IToDoDal
+   public class EfToDoDal:EfEntityRepositoryBase<Todo,TodoContext>,IToDoDal
     {
-        public void Add(Todo entity)
+        public List<ToDoDto> GetToDoDetails()
         {
             using (TodoContext context = new TodoContext())
             {
-                var addedEntity = context.Entry(entity);//referansı yakala  
-                addedEntity.State = EntityState.Added;//eklenecek nesne
-                context.SaveChanges();//işlemleri kaydet
-            }
-        }
+                var result = from t in context.ToDos
+                    join e in context.Employees
+                        on t.EmployeeId equals e.EmployeeId
+                    join u in context.Users
+                        on e.EmployeeId equals u.Id
+                  
+                    select new ToDoDto()
+                    {
+                        ToDoId = t.ToDoId,
+                        EmployeeName = u.FirstName,
+                        Description = t.Description,
 
-        public void Update(Todo entity)
-        {
-            using (TodoContext context = new TodoContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
+                    };
+                return result.ToList();
 
-        public void Delete(Todo entity)
-        {
-            using (TodoContext context = new TodoContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
 
-        public List<Todo> GetAll(Expression<Func<Todo, bool>> filter = null)
-        {
-            using (TodoContext context = new TodoContext())
-            {
-                return filter == null ? context.Set<Todo>().ToList() : context.Set<Todo>().Where(filter).ToList();
-            }
-        }
 
-        public Todo Get(Expression<Func<Todo, bool>> filter)
-        {
-            using (TodoContext context = new TodoContext())
-            {
-                return context.Set<Todo>().SingleOrDefault(filter);
             }
         }
     }

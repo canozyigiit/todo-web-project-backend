@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -60,6 +61,11 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public Todo Get(Expression<Func<Todo, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ToDoDto> GetToDoDetails()
         {
             throw new NotImplementedException();
         }
