@@ -1,5 +1,6 @@
 ﻿using System;
 using Business.Concrete;
+using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
 
 namespace ConsoleUI
@@ -9,16 +10,25 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             ToDoTest();
-            
+
         }
 
         private static void ToDoTest()
         {
             ToDoManager toDoManager = new ToDoManager(new EfToDoDal());
-            foreach (var todo in toDoManager.GetAllToDoDetails())
+            var result = toDoManager.GetAll();
+            if (result.Success == true)
             {
-                Console.WriteLine(todo.Description);
+                foreach (var todo in result.Data)
+                {
+                    Console.WriteLine(result.Data + result.Message + result.Success);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
     }
 }

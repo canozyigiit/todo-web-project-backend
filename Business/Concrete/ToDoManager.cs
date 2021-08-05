@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
@@ -16,35 +18,50 @@ namespace Business.Concrete
        {
            _toDoDal = toDoDal;
        }
-        public List<Todo> GetAll()
+        public IDataResult<List<Todo>> GetAll()
         {
-           return _toDoDal.GetAll();
+            //if (DateTime.Now.Hour ==22)
+            //{
+            //    return new ErrorDataResult<List<Todo>>("Sistem Bakımda");
+            //}
+           return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(),Messages.ToDoListed) ;
         }
 
-        public List<Todo> GetAllByEmployeeId(int id)
+        public IDataResult<List<Todo>> GetAllByEmployeeId(int id)
         {
-            return _toDoDal.GetAll(t => t.EmployeeId == id);
+            return new SuccessDataResult<List<Todo>>( _toDoDal.GetAll(t => t.EmployeeId == id),Messages.EmployeeToDoListed);
         }
 
-        public List<Todo> GetAllByManagerId(int id)
+        public IDataResult<List<Todo>> GetAllByManagerId(int id)
         {
-            return _toDoDal.GetAll(t => t.ManagerId == id);
+            return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.ManagerId == id),Messages.ManagerToDoListed) ;
         }
 
         // Select * from ToDos where isEnded = false
-        public List<Todo> GetAllIsEndedFalse()
+        public IDataResult<List<Todo>> GetAllIsEndedFalse()
         {
-            return _toDoDal.GetAll(t => t.IsEnded == false);
+            return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsEnded == false),Messages.UnfinishedTodosListed) ;
         }
 
-        public List<Todo> GetAllIsAppointed(bool isAppointed)
+        public IDataResult<List<Todo>> GetAllIsAppointed()
         {
-            return _toDoDal.GetAll(t => t.IsAppointed == isAppointed);
+            return new SuccessDataResult<List<Todo>>( _toDoDal.GetAll(t => t.IsAppointed == true),Messages.AppointedTodosListed);
         }
 
-        public List<ToDoDto> GetAllToDoDetails()
+        public IDataResult<List<ToDoDto>> GetAllToDoDetails()
         {
-            return _toDoDal.GetToDoDetails();
+            return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(),Messages.ToDoListed) ;
+        }
+
+        public IResult Add(Todo toDo)
+        {
+            _toDoDal.Add(toDo);
+            return new SuccessResult(Messages.ToDoAdded);
+        }
+
+        public IDataResult<Todo> GetById(int toDoId)
+        {
+            return new SuccessDataResult<Todo>(_toDoDal.Get(t => t.ToDoId == toDoId),Messages.ToDoFound) ;
         }
    }
 }

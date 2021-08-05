@@ -12,10 +12,10 @@ namespace Entities.Concrete
         public String Description { get; set; }
         public int  EmployeeId { get; set; }
         public int ManagerId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime AppointedDate { get; set; }
-        public bool IsAppointed { get; set; }
-        public bool IsEnded { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime? AppointedDate { get; set; } 
+        public bool IsAppointed { get; set; } = false;
+        public bool IsEnded { get; set; } = false;
 
     }
 }
