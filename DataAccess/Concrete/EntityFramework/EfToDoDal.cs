@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
@@ -18,17 +17,16 @@ namespace DataAccess.Concrete.EntityFramework
             using (TodoContext context = new TodoContext())
             {
                 var result = from t in context.ToDos
-                    join e in context.Employees
-                        on t.EmployeeId equals e.EmployeeId
-                    join u in context.Users
-                        on e.EmployeeId equals u.Id
-                  
+                    join e in context.Employees on t.EmployeeId equals e.EmployeeId
+                   join u in context.Users on e.EmployeeId equals u.Id 
+                   
+
                     select new ToDoDto()
                     {
                         ToDoId = t.ToDoId,
                         EmployeeFirstName = u.FirstName,
                         EmployeeLastName = u.LastName,
-                        Description = t.Description,
+                     Description = t.Description,
 
                     };
                 return result.ToList();

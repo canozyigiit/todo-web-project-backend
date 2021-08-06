@@ -11,18 +11,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ToDosController : ControllerBase
+    public class ManagersController : ControllerBase
     {
-        private IToDoService _toDoService;
+        private IManagerService _managerService;
 
-        public ToDosController(IToDoService toDoService)
+        public ManagersController(IManagerService managerService)
         {
-            this._toDoService = toDoService;
+            _managerService = managerService;
         }
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = this._toDoService.GetAll();
+            var result = this._managerService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,9 +32,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Todo todo)
+        public IActionResult Add(Manager manager)
         {
-            var result = _toDoService.Add(todo);
+            var result = _managerService.Add(manager);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,7 +46,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _toDoService.GetById(id);
+            var result = _managerService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,6 +55,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("appointe")]
+        public IActionResult ToDoAppointe(int toDoId, int employeeId)
+        {
+            var result = _managerService.ToDoAppointe(toDoId, employeeId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
     }
 }

@@ -11,18 +11,18 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ToDosController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
-        private IToDoService _toDoService;
+        private IEmployeeService _employeeService;
 
-        public ToDosController(IToDoService toDoService)
+        public EmployeesController(IEmployeeService employeeService)
         {
-            this._toDoService = toDoService;
+            _employeeService = employeeService;
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = this._toDoService.GetAll();
+            var result = this._employeeService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,9 +31,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Todo todo)
+        public IActionResult Add(Employee employee)
         {
-            var result = _toDoService.Add(todo);
+            var result = _employeeService.Add(employee);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _toDoService.GetById(id);
+            var result = _employeeService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,7 +53,5 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-
-
     }
 }

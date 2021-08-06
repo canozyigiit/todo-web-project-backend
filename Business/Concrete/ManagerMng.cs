@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -26,7 +27,7 @@ namespace Business.Concrete
       }
         public IDataResult<List<Manager>> GetAll()
         {
-            return new SuccessDataResult<List<Manager>>(this._managerDal.GetAll(), Messages.EmployeeListed);
+            return new SuccessDataResult<List<Manager>>(this._managerDal.GetAll(), Messages.ManagerListed);
         }
 
         public IResult Add(Manager manager)
@@ -40,7 +41,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Manager>(_managerDal.Get(m => m.ManagerId == managerId), Messages.ManagerFound);
 
         }
-
+        [SecuredOperation("director,admin")]
         public IResult ToDoAppointe(int todoId, int employeeId)
         {
             IResult result = BusinessRules.Run(CheckIfToDoCountEmployeeCorrect(employeeId));

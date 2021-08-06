@@ -12,5 +12,6 @@ namespace Entities.Dtos
         public string EmployeeFirstName { get; set; }
         public string EmployeeLastName { get; set; }
        
+
     }
 }
