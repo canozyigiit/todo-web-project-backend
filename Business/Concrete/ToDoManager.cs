@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -20,10 +26,7 @@ namespace Business.Concrete
        }
         public IDataResult<List<Todo>> GetAll()
         {
-            //if (DateTime.Now.Hour ==22)
-            //{
-            //    return new ErrorDataResult<List<Todo>>("Sistem Bakımda");
-            //}
+         
            return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(),Messages.ToDoListed) ;
         }
 
@@ -43,9 +46,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsEnded == false),Messages.UnfinishedTodosListed) ;
         }
 
-        public IDataResult<List<Todo>> GetAllIsAppointed()
+        public IDataResult<List<Todo>> GetAllIsAppointedTrue()
         {
             return new SuccessDataResult<List<Todo>>( _toDoDal.GetAll(t => t.IsAppointed == true),Messages.AppointedTodosListed);
+        }
+
+        public IDataResult<List<Todo>> GetAllIsAppointedFalse()
+        {
+            return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsAppointed == false), Messages.UnAppointedTodosListed);
         }
 
         public IDataResult<List<ToDoDto>> GetAllToDoDetails()
@@ -53,15 +61,40 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(),Messages.ToDoListed) ;
         }
 
+        [ValidationAspect(typeof(TodoValidator))]
         public IResult Add(Todo toDo)
         {
-            _toDoDal.Add(toDo);
-            return new SuccessResult(Messages.ToDoAdded);
+          IResult result=  BusinessRules.Run(CheckIfToDoDescriptionExists(toDo));
+
+          if (result !=null)
+          {
+              return result;
+          }
+              _toDoDal.Add(toDo);
+              return new SuccessResult(Messages.ToDoAdded);
+           
+        }
+
+        public IResult Update(Todo todo)
+        {
+            _toDoDal.Update(todo);
+            return new SuccessResult(Messages.ToDoUpdated);
         }
 
         public IDataResult<Todo> GetById(int toDoId)
         {
             return new SuccessDataResult<Todo>(_toDoDal.Get(t => t.ToDoId == toDoId),Messages.ToDoFound) ;
         }
-   }
+
+        private IResult CheckIfToDoDescriptionExists(Todo todo)
+        {
+           var result = this._toDoDal.GetAll(t => t.Description == todo.Description).Any();
+           if (result==true)
+           {
+               return new ErrorResult("Bu tanıma sahip bir todo zaten var.");
+           }
+
+           return new SuccessResult();
+        }
+    }
 }

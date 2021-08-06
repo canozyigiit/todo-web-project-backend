@@ -13,10 +13,13 @@ namespace Business.Abstract
        IDataResult<List<Todo>> GetAllByEmployeeId(int id);
        IDataResult<List<Todo>> GetAllByManagerId(int id);
        IDataResult<List<Todo>> GetAllIsEndedFalse();
-       IDataResult<List<Todo>> GetAllIsAppointed();
-       IDataResult<List<ToDoDto>> GetAllToDoDetails();
+       IDataResult<List<Todo>> GetAllIsAppointedTrue();
+       IDataResult<List<Todo>> GetAllIsAppointedFalse();
+        IDataResult<List<ToDoDto>> GetAllToDoDetails();
        IResult Add(Todo toDo);
+       IResult Update(Todo todo);
        IDataResult<Todo> GetById(int toDoId);
+
 
    }
 }

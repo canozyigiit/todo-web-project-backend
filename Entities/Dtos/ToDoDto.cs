@@ -9,7 +9,8 @@ namespace Entities.Dtos
     {
         public int  ToDoId { get; set; }
         public string Description { get; set; }
-        public string EmployeeName { get; set; }
+        public string EmployeeFirstName { get; set; }
+        public string EmployeeLastName { get; set; }
        
     }
 }

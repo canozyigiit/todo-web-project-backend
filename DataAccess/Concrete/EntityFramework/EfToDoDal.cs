@@ -26,7 +26,8 @@ namespace DataAccess.Concrete.EntityFramework
                     select new ToDoDto()
                     {
                         ToDoId = t.ToDoId,
-                        EmployeeName = u.FirstName,
+                        EmployeeFirstName = u.FirstName,
+                        EmployeeLastName = u.LastName,
                         Description = t.Description,
 
                     };

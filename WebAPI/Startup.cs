@@ -31,8 +31,8 @@ namespace WebAPI
         {
             //Autofac or Ninject
             services.AddControllers();
-            services.AddSingleton<IToDoService, ToDoManager>();
-            services.AddSingleton<IToDoDal, EfToDoDal>();
+            //services.AddSingleton<IToDoService, ToDoManager>();
+            //services.AddSingleton<IToDoDal, EfToDoDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
