@@ -4,6 +4,7 @@ using System.Text;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -25,6 +26,7 @@ namespace Business.Concrete
           this._managerDal = managerDal;
           this._employeeService = employeeService;
       }
+        [CacheAspect]
         public IDataResult<List<Manager>> GetAll()
         {
             return new SuccessDataResult<List<Manager>>(this._managerDal.GetAll(), Messages.ManagerListed);
@@ -35,7 +37,7 @@ namespace Business.Concrete
             _managerDal.Add(manager);
             return new SuccessResult(Messages.ManagerAdded);
         }
-
+        [CacheAspect]
         public IDataResult<Manager> GetById(int managerId)
         {
             return new SuccessDataResult<Manager>(_managerDal.Get(m => m.ManagerId == managerId), Messages.ManagerFound);
@@ -44,11 +46,12 @@ namespace Business.Concrete
         [SecuredOperation("director,admin")]
         public IResult ToDoAppointe(int todoId, int employeeId)
         {
-            IResult result = BusinessRules.Run(CheckIfToDoCountEmployeeCorrect(employeeId));
+            IResult result = BusinessRules.Run(CheckIfToDoCountEmployeeCorrect(employeeId), CheckIfIsEmployee(employeeId));
             if (result != null)
             {
                 return result;
             }
+            
             var toDo =_toDoService.GetById(todoId).Data;
 
                 toDo.EmployeeId = employeeId;
@@ -66,6 +69,17 @@ namespace Business.Concrete
             {
                 return new ErrorResult("Bu çalışana ait zaten 2'den fazla todo var");
 
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfIsEmployee(int employeeId)
+        {
+            var employee = _employeeService.GetById(employeeId).Data;
+            if (employee == null)
+            {
+                return new ErrorResult(Messages.EmployeeNotFound);
             }
 
             return new SuccessResult();

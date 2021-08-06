@@ -6,6 +6,7 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -25,17 +26,18 @@ namespace Business.Concrete
        {
            _toDoDal = toDoDal;
        }
+       [CacheAspect]
         public IDataResult<List<Todo>> GetAll()
         {
          
            return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(),Messages.ToDoListed) ;
         }
-
+        [CacheAspect]
         public IDataResult<List<Todo>> GetAllByEmployeeId(int id)
         {
             return new SuccessDataResult<List<Todo>>( _toDoDal.GetAll(t => t.EmployeeId == id),Messages.EmployeeToDoListed);
         }
-
+        [CacheAspect]
         public IDataResult<List<Todo>> GetAllByManagerId(int id)
         {
             return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.ManagerId == id),Messages.ManagerToDoListed) ;
@@ -46,17 +48,18 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsEnded == false),Messages.UnfinishedTodosListed) ;
         }
-
+        [CacheAspect]
         public IDataResult<List<Todo>> GetAllIsAppointedTrue()
         {
             return new SuccessDataResult<List<Todo>>( _toDoDal.GetAll(t => t.IsAppointed == true),Messages.AppointedTodosListed);
         }
-
+        [CacheAspect]
         public IDataResult<List<Todo>> GetAllIsAppointedFalse()
         {
             return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsAppointed == false), Messages.UnAppointedTodosListed);
         }
 
+        [CacheAspect]
         public IDataResult<List<ToDoDto>> GetAllToDoDetails()
         {
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(),Messages.ToDoListed) ;
@@ -82,7 +85,7 @@ namespace Business.Concrete
             _toDoDal.Update(todo);
             return new SuccessResult(Messages.ToDoUpdated);
         }
-
+        [CacheAspect]
         public IDataResult<Todo> GetById(int toDoId)
         {
             return new SuccessDataResult<Todo>(_toDoDal.Get(t => t.ToDoId == toDoId),Messages.ToDoFound) ;

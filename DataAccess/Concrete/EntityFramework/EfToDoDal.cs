@@ -18,7 +18,9 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from t in context.ToDos
                     join e in context.Employees on t.EmployeeId equals e.EmployeeId
-                   join u in context.Users on e.EmployeeId equals u.Id 
+                    join m in context.Managers on t.ManagerId equals m.ManagerId
+                    join u in context.Users on e.UserId equals u.Id 
+                    join user in context.Users on m.UserId equals user.Id
                    
 
                     select new ToDoDto()
@@ -26,7 +28,9 @@ namespace DataAccess.Concrete.EntityFramework
                         ToDoId = t.ToDoId,
                         EmployeeFirstName = u.FirstName,
                         EmployeeLastName = u.LastName,
-                     Description = t.Description,
+                        Description = t.Description,
+                        ManagerFirstName = user.FirstName,
+                        ManagerLastName = user.LastName
 
                     };
                 return result.ToList();

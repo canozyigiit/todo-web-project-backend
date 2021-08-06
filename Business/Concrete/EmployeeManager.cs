@@ -6,6 +6,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -21,6 +22,11 @@ namespace Business.Concrete
         public IDataResult<List<Employee>> GetAll()
         {
             return new SuccessDataResult<List<Employee>>(this._employeeDal.GetAll(), Messages.EmployeeListed);
+        }
+
+        public IDataResult<List<EmployeeDto>> GetAllDetails()
+        {
+            return new SuccessDataResult<List<EmployeeDto>>(this._employeeDal.GetallEmployeeDtos(), Messages.EmployeeListed);
         }
 
         public IResult Add(Employee employee)

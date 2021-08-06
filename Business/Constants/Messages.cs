@@ -24,8 +24,8 @@ namespace Business.Constants
         public static string EmployeeAdded = "Yeni çalışan eklendi";
         public static string EmployeeListed = "Çalışanlar listelendi";
         public static string EmployeeFound = "Çalışan bulundu";
+        internal static string EmployeeNotFound = "Çalışan bulunamadı";
 
-       
         public static string ManagerFound = "Manager bulundu";
         public static string ManagerAdded = "Manager eklendi";
         public static string ManagerListed = "Managerlar listelendi";
@@ -38,21 +38,22 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut";
         public static string UserRegistered = "Kullanıcı başarıyla kaydedildi";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
-        internal static string UserListed;
-        internal static string Deleted;
-        internal static string NotDeleted;
-        internal static string Updated;
+
+       
         internal static string UserFound;
+
         internal static string UserClaimsListed;
         internal static string UserOperationClaimAdded;
         internal static string UserOperationClaimDeleted;
         internal static string UserOperationClaimUpdated;
+        internal static string UserOperationClaimListed;
+        internal static string UserOperationClaimFound;
+
         internal static string OperationClaimAdded;
         internal static string OperationClaimUpdated;
         internal static string OperationClaimDeleted;
-        internal static string UserOperationClaimListed;
-        internal static string UserOperationClaimFound;
         internal static string OperationClaimFound;
         internal static string OperationClaimListed;
+       
     }
 }

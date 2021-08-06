@@ -12,11 +12,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPI
@@ -40,8 +44,8 @@ namespace WebAPI
                 options.AddPolicy("AllowOrigin",
                     builder => builder.WithOrigins("http://localhost:3000"));
             });
-            //services.AddSingleton<IToDoService, ToDoManager>();
-            //services.AddSingleton<IToDoDal, EfToDoDal>();
+
+     
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -58,6 +62,10 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule() 
+            });//baþka module de eklenebilir
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

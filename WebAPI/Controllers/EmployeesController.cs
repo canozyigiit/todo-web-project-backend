@@ -30,6 +30,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getalldetails")]
+        public IActionResult GetAllDetails()
+        {
+            var result = this._employeeService.GetAllDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Employee employee)
         {
