@@ -40,6 +40,71 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("GetAllIsEndedFalse")]
+        public IActionResult GetAllIsEndedFalse()
+        {
+            var result = this._toDoService.GetAllIsEndedFalse();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetAllIsEndedTrue")]
+        public IActionResult GetAllIsEndedTrue()
+        {
+            var result = this._toDoService.GetAllIsEndedTrue();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("GetAllIsAppointedFalse")]
+        public IActionResult GetAllIsAppointedFalse()
+        {
+            var result = this._toDoService.GetAllIsAppointedFalse();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("GetAllIsAppointedTrue")]
+        public IActionResult GetAllIsAppointedTrue()
+        {
+            var result = this._toDoService.GetAllIsAppointedTrue();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetAllByManagerId")]
+        public IActionResult GetAllByManagerId(int id)
+        {
+            var result = this._toDoService.GetAllByManagerId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("GetAllByEmployeeId")]
+        public IActionResult GetAllByEmployeeId(int id)
+        {
+            var result = this._toDoService.GetAllByEmployeeId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Todo todo)
         {

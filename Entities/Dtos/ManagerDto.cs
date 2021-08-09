@@ -5,13 +5,13 @@ using Core;
 
 namespace Entities.Dtos
 {
-   public class EmployeeDto:IDto
+   public class ManagerDto:IDto
     {
-        public int EmployeeId { get; set; }
+        public int ManagerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Position { get; set; }
-        //public int? claim { get; set; }
+        public int? claim { get; set; }
+      
     }
 }

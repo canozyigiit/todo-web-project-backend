@@ -5,10 +5,12 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Aspects.Autofac.Caching;
+using Core.Entities;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -17,21 +19,19 @@ namespace Business.Concrete
 
   {
       private IManagerDal _managerDal;
-      private IToDoService _toDoService;
-      private IEmployeeService _employeeService;
+    
 
-      public ManagerMng(IManagerDal managerDal,IToDoService toDoService,IEmployeeService employeeService)
+      public ManagerMng(IManagerDal managerDal)
       {
-          this._toDoService = toDoService;
           this._managerDal = managerDal;
-          this._employeeService = employeeService;
+          
       }
         [CacheAspect]
         public IDataResult<List<Manager>> GetAll()
         {
             return new SuccessDataResult<List<Manager>>(this._managerDal.GetAll(), Messages.ManagerListed);
         }
-
+        [CacheRemoveAspect("IManagerService.Get")]
         public IResult Add(Manager manager)
         {
             _managerDal.Add(manager);
@@ -43,48 +43,19 @@ namespace Business.Concrete
             return new SuccessDataResult<Manager>(_managerDal.Get(m => m.ManagerId == managerId), Messages.ManagerFound);
 
         }
-        [SecuredOperation("director,admin")]
-        public IResult ToDoAppointe(int todoId, int employeeId)
-        {
-            IResult result = BusinessRules.Run(CheckIfToDoCountEmployeeCorrect(employeeId), CheckIfIsEmployee(employeeId));
-            if (result != null)
-            {
-                return result;
-            }
-            
-            var toDo =_toDoService.GetById(todoId).Data;
 
-                toDo.EmployeeId = employeeId;
-                toDo.AppointedDate = DateTime.Now;
-                toDo.IsAppointed = true;
-                this._toDoService.Update(toDo);
-                //TODO: Employee bilgilendirici e posta gidecek
-                return new SuccessResult(Messages.ToDoAppointed);
+        public IDataResult<Manager> GetByUserId(int userId)
+        {
+            return new SuccessDataResult<Manager>(_managerDal.Get(m => m.UserId == userId), Messages.ManagerFound);
         }
 
-        private IResult CheckIfToDoCountEmployeeCorrect(int employeeId)
+        [CacheAspect]
+        public IDataResult<List<ManagerDto>> GetAllManagerDetails()
         {
-            var result = this._toDoService.GetAllByEmployeeId(employeeId).Data.Count;
-            if (result > 2)
-            {
-                return new ErrorResult("Bu çalışana ait zaten 2'den fazla todo var");
-
-            }
-
-            return new SuccessResult();
+            return new SuccessDataResult<List<ManagerDto>>(_managerDal.GetAllManagerDetails(), Messages.ManagerListed);
         }
 
-        private IResult CheckIfIsEmployee(int employeeId)
-        {
-            var employee = _employeeService.GetById(employeeId).Data;
-            if (employee == null)
-            {
-                return new ErrorResult(Messages.EmployeeNotFound);
-            }
-
-            return new SuccessResult();
-        }
-
+       
       
   }
 }

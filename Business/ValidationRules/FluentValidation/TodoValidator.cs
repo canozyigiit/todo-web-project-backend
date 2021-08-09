@@ -13,6 +13,8 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(t => t.Description).MinimumLength(10).WithMessage("Lütfen tanımı on karakterden büyük veriniz.");
             RuleFor(t => t.Description).NotEmpty();
             RuleFor(t => t.ManagerId).NotEmpty();
+            RuleFor(t => t.ManagerId).GreaterThan(0);
+            RuleFor(t => t.EmployeeId).GreaterThan(0);
             RuleFor(t => t.CreatedDate).NotEmpty();
          
         }

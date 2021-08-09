@@ -10,10 +10,11 @@ namespace Business.Abstract
    public interface IToDoService
    {
        IDataResult<List<Todo>> GetAll();
-       IDataResult<List<Todo>> GetAllByEmployeeId(int id);
-       IDataResult<List<Todo>> GetAllByManagerId(int id);
-       IDataResult<List<Todo>> GetAllIsEndedFalse();
-       IDataResult<List<Todo>> GetAllIsAppointedTrue();
+       IDataResult<List<ToDoDto>> GetAllByEmployeeId(int id);
+       IDataResult<List<ToDoDto>> GetAllByManagerId(int id);
+       IDataResult<List<ToDoDto>> GetAllIsEndedFalse();
+       IDataResult<List<ToDoDto>> GetAllIsEndedTrue();
+        IDataResult<List<ToDoDto>> GetAllIsAppointedTrue();
        IDataResult<List<Todo>> GetAllIsAppointedFalse();
         IDataResult<List<ToDoDto>> GetAllToDoDetails();
        IResult Add(Todo toDo);

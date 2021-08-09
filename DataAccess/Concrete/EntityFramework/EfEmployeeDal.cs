@@ -18,18 +18,18 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from e in context.Employees
                     join u in context.Users on e.UserId equals u.Id
-                    //join u in context.Users on e.EmployeeId equals u.Id 
+                    //join c in context.UserOperationClaims on e.UserId equals c.UserId
 
 
-                    select new EmployeeDto()
+
+                             select new EmployeeDto()
                     {
                        EmployeeId = e.EmployeeId,
                        FirstName = u.FirstName,
                        LastName = u.LastName,
                        Email = u.Email,
-                       Position = e.Position
-                       
-
+                       Position = e.Position,
+                     
                     };
                 return result.ToList();
 

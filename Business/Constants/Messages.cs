@@ -14,7 +14,9 @@ namespace Business.Constants
         public static string ToDoListed = "Todolar listelendi";
         public static string EmployeeToDoListed = "Çalışana ait todolar listelendi";
         public static string ManagerToDoListed = "Yetkilinin atadığı todolar listelendi";
-        public static string UnfinishedTodosListed = "Henüz bitmemiş todolar listelendi";
+        public static string UnfinishedTodosListed = "Tamamlanmış todolar listelendi";
+        internal static string FinishedTodosListed = "Tamamlanmış todolar listelendi";
+
         public static string AppointedTodosListed = "Atanmış todolar listelendi";
         public static string UnAppointedTodosListed = "Atanmamış todolar listelendi";
         public static string ToDoFound = "Todo bulundu";
@@ -24,7 +26,7 @@ namespace Business.Constants
         public static string EmployeeAdded = "Yeni çalışan eklendi";
         public static string EmployeeListed = "Çalışanlar listelendi";
         public static string EmployeeFound = "Çalışan bulundu";
-        internal static string EmployeeNotFound = "Çalışan bulunamadı";
+        public static string EmployeeNotFound = "Çalışan bulunamadı";
 
         public static string ManagerFound = "Manager bulundu";
         public static string ManagerAdded = "Manager eklendi";
@@ -39,21 +41,27 @@ namespace Business.Constants
         public static string UserRegistered = "Kullanıcı başarıyla kaydedildi";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
 
-       
-        internal static string UserFound;
 
-        internal static string UserClaimsListed;
-        internal static string UserOperationClaimAdded;
-        internal static string UserOperationClaimDeleted;
-        internal static string UserOperationClaimUpdated;
-        internal static string UserOperationClaimListed;
-        internal static string UserOperationClaimFound;
+        public static string UserFound = "Kullanıcı bulundu";
+        public static string UserAdded = "Kullanıcı sisteme eklendi";
+        public static string UserUpdated = "Kullanıcı güncellendi";
 
-        internal static string OperationClaimAdded;
-        internal static string OperationClaimUpdated;
-        internal static string OperationClaimDeleted;
-        internal static string OperationClaimFound;
-        internal static string OperationClaimListed;
-       
+        public static string UserClaimsListed = "Kullanıcı rolleri listelendi";
+        public static string UserOperationClaimAdded = "Kullanıcıya yeni rol eklendi";
+        public static string UserOperationClaimDeleted = "Kullanıcıya ait rol silindi";
+        public static string UserOperationClaimUpdated = "Kullanıcının rolü güncellendi";
+        public static string UserOperationClaimListed = "Kullanıcı rolleri listelendi";
+        public static string UserOperationClaimFound = "Kullanıcıya ait rol bulundu";
+
+        public static string OperationClaimAdded = "Yeni rol sisteme eklendi";
+        public static string OperationClaimUpdated = "Rol güncellendi";
+        public static string OperationClaimDeleted = "Rol silindi";
+        public static string OperationClaimFound = "Rol bulundu";
+        public static string OperationClaimListed = "Sistemdeki roller listelendi";
+
+
+        public static string UserMadeEmployee = "Kullanıcı çalışan yapıldı";
+        public static string UserMadeManager = "Kullanıcı yetkili yapıldı";
+        public static string UserMadeDirector = "Kullanıcıya director rolü verildi";
     }
 }
