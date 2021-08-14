@@ -20,3 +20,12 @@ Integrated Development Environment : Visual Studio 2019 <img align="left" alt="V
 
 ## Database Diagram
 ![datebaseDiagram](https://github.com/canozyigiit/ToDoWepProject/blob/master/TodoDB.png)
+
+## Useful Links
+
+Social Media:
+
+Linkedin: <https://www.linkedin.com/in/muhammet-can-%C3%B6zyi%C4%9Fit-090b34218/>
+
+Frontend: <https://github.com/canozyigiit/ToDoWebProject-Frontend>
+
