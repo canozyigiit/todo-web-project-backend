@@ -19,14 +19,14 @@ namespace Business.Concrete
 
   {
       private IManagerDal _managerDal;
-    
+      private IUserService _userService;
 
-      public ManagerMng(IManagerDal managerDal)
+      public ManagerMng(IManagerDal managerDal, IUserService userService)
       {
-          this._managerDal = managerDal;
-          
+          _managerDal = managerDal;
+          _userService = userService;
       }
-        [CacheAspect]
+      [CacheAspect]
         public IDataResult<List<Manager>> GetAll()
         {
             return new SuccessDataResult<List<Manager>>(this._managerDal.GetAll(), Messages.ManagerListed);
@@ -46,8 +46,16 @@ namespace Business.Concrete
 
         public IDataResult<Manager> GetByUserId(int userId)
         {
+
             return new SuccessDataResult<Manager>(_managerDal.Get(m => m.UserId == userId), Messages.ManagerFound);
         }
+
+        public IDataResult<Manager> GetByMail(string mail)
+        {
+          var user =  this._userService.GetByMail(mail).Data;
+         return new SuccessDataResult<Manager>( this.GetByUserId(user.Id).Data,Messages.ManagerFound);
+        }
+
 
         [CacheAspect]
         public IDataResult<List<ManagerDto>> GetAllManagerDetails()
@@ -55,7 +63,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ManagerDto>>(_managerDal.GetAllManagerDetails(), Messages.ManagerListed);
         }
 
-       
-      
+
+        private IResult UserExists(string mail)
+        {
+            if (_userService.GetByMail(mail).Data == null)
+            {
+                return new ErrorResult("Kullanıcı bulunamadı");
+            }
+
+            return new SuccessResult();
+        }
   }
 }

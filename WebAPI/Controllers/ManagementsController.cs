@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _managementService = managementService;
         }
 
-        [HttpPost("todoappointe")]
+        [HttpOptions("todoappointe")]
         public IActionResult ToDoAppointe(int toDoId, int employeeId)
         {
             var result = _managementService.ToDoAppointe(toDoId, employeeId);

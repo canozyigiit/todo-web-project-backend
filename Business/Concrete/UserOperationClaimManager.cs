@@ -14,19 +14,24 @@ namespace Business.Concrete
     {
         private readonly IOperationClaimService _operationClaimService;
         private readonly IUserOperationClaimDal _userOperationClaimDal;
+        private IUserService _userService;
 
-        public UserOperationClaimManager(IOperationClaimService operationClaimService,
-            IUserOperationClaimDal userOperationClaimDal
-        )
+        public UserOperationClaimManager(IOperationClaimService operationClaimService, IUserOperationClaimDal userOperationClaimDal, IUserService userService)
         {
             _operationClaimService = operationClaimService;
             _userOperationClaimDal = userOperationClaimDal;
+            _userService = userService;
         }
 
-        [SecuredOperation("admin")]
         public IDataResult<UserOperationClaim> GetById(int id)
         {
             return new SuccessDataResult<UserOperationClaim>(_userOperationClaimDal.Get(u => u.Id == id), Messages.UserOperationClaimFound);
+        }
+
+        public IDataResult<UserOperationClaim> GetByUserClaimEmail(string email)
+        {
+          var user=  _userService.GetByMail(email).Data;
+          return new SuccessDataResult<UserOperationClaim>(_userOperationClaimDal.Get(u => u.UserId == user.Id), Messages.UserOperationClaimFound);
         }
 
         [SecuredOperation("admin")]

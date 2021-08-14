@@ -42,13 +42,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(t => t.ManagerId == id),Messages.ManagerToDoListed) ;
         }
-
+        [CacheAspect]
         // Select * from ToDos where isEnded = false
         public IDataResult<List<ToDoDto>> GetAllIsEndedFalse()
         {
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(t => t.IsEnded == false),Messages.UnfinishedTodosListed) ;
         }
-
+        [CacheAspect]
         public IDataResult<List<ToDoDto>> GetAllIsEndedTrue()
         {
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(t => t.IsEnded == true), Messages.FinishedTodosListed);
@@ -65,14 +65,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Todo>>(_toDoDal.GetAll(t => t.IsAppointed == false), Messages.UnAppointedTodosListed);
         }
 
-        
+        [CacheAspect]
         public IDataResult<List<ToDoDto>> GetAllToDoDetails()
         {
             return new SuccessDataResult<List<ToDoDto>>(_toDoDal.GetToDoDetails(),Messages.ToDoListed) ;
         }
 
         [ValidationAspect(typeof(TodoValidator))]
-       // [SecuredOperation("director,admin")]
+        [SecuredOperation("director,admin")]
         [CacheRemoveAspect("IToDoService.Get")]
         public IResult Add(Todo toDo)
         {
@@ -86,6 +86,13 @@ namespace Business.Concrete
               return new SuccessResult(Messages.ToDoAdded);
            
         }
+        [CacheRemoveAspect("IToDoService.Get")]
+        public IResult Delete(Todo todo)
+        {
+            _toDoDal.Delete(todo);
+            return new SuccessResult(Messages.ToDoDeleted);
+        }
+
         [CacheRemoveAspect("IToDoService.Get")]
         public IResult Update(Todo todo)
         {

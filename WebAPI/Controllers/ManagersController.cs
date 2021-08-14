@@ -41,6 +41,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+     
 
         [HttpPost("add")]
         public IActionResult Add(Manager manager)
@@ -65,8 +66,32 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("GetByMail")]
+        public IActionResult GetByMail(string mail)
+        {
+            var result = _managerService.GetByMail(mail);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
-       
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(int id)
+        {
+            var result = _managerService.GetByUserId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+
 
     }
 }

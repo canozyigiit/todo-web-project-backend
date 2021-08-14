@@ -15,7 +15,7 @@ namespace Business.Abstract
         IResult Add(Employee employee);
         IDataResult<Employee> GetById(int employeeId);
 
-       
+        IDataResult<Employee> GetByUserId(int id);
 
     }
 }

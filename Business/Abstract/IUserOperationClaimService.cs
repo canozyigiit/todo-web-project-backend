@@ -10,6 +10,7 @@ namespace Business.Abstract
   public interface IUserOperationClaimService
     {
         IDataResult<UserOperationClaim> GetById(int id);
+        IDataResult<UserOperationClaim> GetByUserClaimEmail(string email);
 
         IDataResult<List<UserOperationClaim>> GetAll();
 

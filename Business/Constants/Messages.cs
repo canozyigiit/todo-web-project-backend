@@ -16,7 +16,7 @@ namespace Business.Constants
         public static string ManagerToDoListed = "Yetkilinin atadığı todolar listelendi";
         public static string UnfinishedTodosListed = "Tamamlanmış todolar listelendi";
         internal static string FinishedTodosListed = "Tamamlanmış todolar listelendi";
-
+        internal static string ToDoDeleted = "Todo silindi";
         public static string AppointedTodosListed = "Atanmış todolar listelendi";
         public static string UnAppointedTodosListed = "Atanmamış todolar listelendi";
         public static string ToDoFound = "Todo bulundu";
@@ -35,7 +35,7 @@ namespace Business.Constants
 
         public static string AuthorizationDenied = "Yetkiniz yok";
         public static string UserNotFound = "Kullanıcı bulunamadı";
-        public static string PasswordError = "Şifre hatalı";
+        public static string PasswordError = "Parola hatası";
         public static string SuccessfulLogin = "Sisteme giriş başarılı";
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut";
         public static string UserRegistered = "Kullanıcı başarıyla kaydedildi";

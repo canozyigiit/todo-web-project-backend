@@ -95,7 +95,7 @@ namespace Business.Concrete
             toDo.AppointedDate = DateTime.Now;
             toDo.IsAppointed = true;
             _toDoService.Update(toDo);
-            Message message = new Message(new string[] {user.Email.ToString()},"Yeni Todo Atandı","Yeni bir todo atandı sistemden kontrol edebilirsiniz.",null);
+            Message message = new Message(new string[] {user.Email.ToString()},"Yeni Todo Atandı ",$"Yeni bir todo atandı:{toDo.Description} . \n Sistemden kontrol edebilirsiniz.",null);
             _emailService.SendEmail(message);
             return new SuccessResult(Messages.ToDoAppointed);
         }

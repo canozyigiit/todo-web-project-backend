@@ -18,7 +18,8 @@ namespace Business.Abstract
        IDataResult<List<Todo>> GetAllIsAppointedFalse();
         IDataResult<List<ToDoDto>> GetAllToDoDetails();
        IResult Add(Todo toDo);
-       IResult Update(Todo todo);
+       IResult Delete(Todo toDo);
+        IResult Update(Todo todo);
        IDataResult<Todo> GetById(int toDoId);
 
 

@@ -116,6 +116,28 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpPost("Delete")]
+        public IActionResult Delete(Todo todo)
+        {
+            var result = _toDoService.Delete(todo);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpPost("Update")]
+        public IActionResult Update(Todo todo)
+        {
+            var result = _toDoService.Update(todo);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)

@@ -16,6 +16,7 @@ namespace Business.Abstract
         IResult Add(Manager manager);
         IDataResult<Manager> GetById(int managerId);
         IDataResult<Manager> GetByUserId(int userId);
+        IDataResult<Manager> GetByMail(string mail);
         IDataResult<List<ManagerDto>> GetAllManagerDetails();
        
     }
