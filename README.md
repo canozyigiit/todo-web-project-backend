@@ -12,4 +12,8 @@ Integrated Development Environment : Visual Studio 2019 <img align="left" alt="V
 [![Fluent-Validation](https://img.shields.io/badge/Fluent%20Validation-004880?style=for-the-badge&logo=nuget&logoColor=white)](https://fluentvalidation.net/)
 
 ## Techniques
-
+- AOP
+- JWT
+- Autofac dependency resolver
+- IOC
+- Layered Architecture Design Pattern
