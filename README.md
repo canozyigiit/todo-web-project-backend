@@ -17,3 +17,6 @@ Integrated Development Environment : Visual Studio 2019 <img align="left" alt="V
 - Autofac dependency resolver
 - IOC
 - Layered Architecture Design Pattern
+
+## Database Diagram
+![datebaseDiagram](https://github.com/canozyigiit/ToDoWepProject/blob/master/TodoDB.png)
