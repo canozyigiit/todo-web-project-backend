@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Business.BusinessAspects.Autofac
 {
     //JWT
-    public class SecuredOperation : MethodInterception//Yetkilendirme alt yapısını değişebilir o yüzden business
+    public class SecuredOperation : MethodInterception//Yetkilendirme alt yapısı değişebilir o yüzden business
     {
         private string[] _roles;
         private IHttpContextAccessor _httpContextAccessor;//Her kişi için bir httpcontext oluşturur
@@ -31,7 +31,7 @@ namespace Business.BusinessAspects.Autofac
             {
                 if (roleClaims.Contains(role))//kullanıcının rolleri arasında gereken rol var mı?
                 {
-                    return;//devam ettir
+                    return;
                 }
             }
             throw new Exception(Messages.AuthorizationDenied);

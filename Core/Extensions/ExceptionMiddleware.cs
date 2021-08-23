@@ -51,7 +51,7 @@ namespace Core.Extensions
                 }.ToString());
             }
 
-            return httpContext.Response.WriteAsync(new ErrorDetails //responseyi ErrorDetails formatında gönder
+            return httpContext.Response.WriteAsync(new ErrorDetails //responsu ErrorDetails formatında gönder
             {
                 StatusCode = httpContext.Response.StatusCode,
                 message = message

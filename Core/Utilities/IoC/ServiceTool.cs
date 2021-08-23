@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Core.Utilities.IoC
 {
     public static class ServiceTool
-    {//Autofacte ki injectionları okumamıza  yarar
+    {//api-business-dataaccess
         public static IServiceProvider ServiceProvider { get; private set; }
 
         public static IServiceCollection Create(IServiceCollection services)
